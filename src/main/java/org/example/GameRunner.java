@@ -45,7 +45,13 @@ public class GameRunner {
                 String choice = scanner.next();
 
                 if (choice.equalsIgnoreCase("hit")) {
-                    player.addCard(deck.dealNextCard());
+                    Card newCard = deck.dealNextCard();
+                    if (newCard == null) {
+                        System.out.println("The deck is empty. Reshuffling the deck.");
+                        deck = new Deck();
+                        newCard = deck.dealNextCard();
+                    }
+                    player.addCard(newCard);
                     if (calculateHandValue(player.getHand()) > 21) {
                         System.out.println("Bust! You lose.");
                         player.loseBet();
@@ -53,20 +59,38 @@ public class GameRunner {
                     }
                 } else if (choice.equalsIgnoreCase("stand")) {
                     while (calculateHandValue(dealerHand) < 17) {
-                        dealerHand.add(deck.dealNextCard());
+                        Card newCard = deck.dealNextCard();
+                        if (newCard == null) {
+                            System.out.println("The deck is empty. Reshuffling the deck.");
+                            deck = new Deck();
+                            newCard = deck.dealNextCard();
+                        }
+                        dealerHand.add(newCard);
                     }
                     determineWinner();
                     break;
                 } else if (choice.equalsIgnoreCase("double down")) {
                     player.placeBet(player.getBet()); // Double the bet
-                    player.addCard(deck.dealNextCard());
+                    Card newCard = deck.dealNextCard();
+                    if (newCard == null) {
+                        System.out.println("The deck is empty. Reshuffling the deck.");
+                        deck = new Deck();
+                        newCard = deck.dealNextCard();
+                    }
+                    player.addCard(newCard);
                     if (calculateHandValue(player.getHand()) > 21) {
                         System.out.println("Bust! You lose.");
                         player.loseBet();
                         break;
                     }
                     while (calculateHandValue(dealerHand) < 17) {
-                        dealerHand.add(deck.dealNextCard());
+                        newCard = deck.dealNextCard();
+                        if (newCard == null) {
+                            System.out.println("The deck is empty. Reshuffling the deck.");
+                            deck = new Deck();
+                            newCard = deck.dealNextCard();
+                        }
+                        dealerHand.add(newCard);
                     }
                     determineWinner();
                     break;

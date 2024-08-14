@@ -1,9 +1,12 @@
 package org.example;
 
 public interface DeckActions {
-    public void shuffle() ;
+    // Method to shuffle the deck
+    public void shuffle();
 
+    // Method to deal the next card from the deck
     public Card dealNextCard();
 
-    public void printDeck(int numToPrint) ;
+    // Method to print a specified number of cards from the deck
+    public void printDeck(int numToPrint);
 }
